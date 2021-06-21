@@ -8,7 +8,7 @@ export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
   @Get()
-  findAllCategories(): Promise<Category[]> {
+  getAllCategories(): Promise<Category[]> {
     return this.categoryService.findAll();
   }
 
@@ -17,5 +17,10 @@ export class CategoryController {
     @Body() createCategoryDto: CreateCategoryDto,
   ): Promise<Category> {
     return this.categoryService.create(createCategoryDto);
+  }
+
+  @Get('/products')
+  getCategoryProducts(): Promise<Category[]> {
+    return this.categoryService.getCategoryProducts();
   }
 }

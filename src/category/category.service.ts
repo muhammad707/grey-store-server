@@ -14,6 +14,21 @@ export class CategoryService {
     return this.categoryModel.find().exec();
   }
 
+  async getCategoryProducts(): Promise<Category[]> {
+    return await this.categoryModel
+      .aggregate([
+        {
+          $lookup: {
+            from: 'products',
+            localField: 'title',
+            foreignField: 'category',
+            as: 'products',
+          },
+        },
+      ])
+      .exec();
+  }
+
   async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
     const newCategory = new this.categoryModel(createCategoryDto);
     return newCategory.save();

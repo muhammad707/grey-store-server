@@ -18,4 +18,8 @@ export class ProductService {
     const newProduct = new this.productModel(createProductDto);
     return newProduct.save();
   }
+
+  async getProductsByCategory(category: string): Promise<Product[]> {
+    return this.productModel.find({ category }).exec();
+  }
 }
